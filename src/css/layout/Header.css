@@ -1,0 +1,18 @@
+.header {
+    background: #333;
+    height: 10vh;
+    display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header span {
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+}
+
+.header .green {
+    color: #42f48f;
+}
