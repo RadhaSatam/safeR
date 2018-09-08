@@ -1,0 +1,30 @@
+
+.leaflet-tile-pane {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.leaflet-right .leaflet-control-geosearch form {
+    right: 28px;
+    left: initial;
+    border-radius: 4px 0 0 4px;
+    border-left: inherit;
+    border-right: none;
+}
+
+
+#map-container .btn-toggleMap {
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+    background: #fff;
+    color: #000;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 9999;
+}
+
+#map-container .btn-toggleMap:hover {
+    background: #fafafa;
+}

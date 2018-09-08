@@ -1,8 +1,19 @@
 import React from 'react';
 import L from 'leaflet';
 import "leaflet.heat";
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
+import "../css/MapComponent.css"
 
+var heat = null;
 class Map extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      heatMapActive: true
+    }
+    this.toggleHeatMap = this.toggleHeatMap.bind(this);
+  }
+  
   componentDidMount() {
     // create map
     this.map = L.map('map', {
@@ -15,6 +26,7 @@ class Map extends React.Component {
       ]
     });
 
+    // add heatmap
     let addressPoints = [
       [49.25765089, -123.2639868, 1],
       [48.25765089, -123.2639868, 1],
@@ -23,23 +35,68 @@ class Map extends React.Component {
       [53.25765089, -123.2639868, 1],
       [49.25765089, -129.26, 1]
     ]
-    for(var i=0;i<1000; i++){
+    for(let i=0;i<1000; i++){
       addressPoints.push([49.25765089+(Math.random()*7-3),
                         -123.2639868+(Math.random()*7-3),
                         0.65]);
     }
 
-    for(var i=0;i<1000; i++){
+    for(let i=0;i<1000; i++){
       addressPoints.push([49.25765089+(Math.random()*7-3),
                         -123.2639868+(Math.random()*7-3),
                         1]);
     }
     
     
-    var heat = L.heatLayer(addressPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.4: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
+    heat = L.heatLayer(addressPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.4: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
+
+    // add search control
+    const provider = new OpenStreetMapProvider();
+
+    const searchControl = new GeoSearchControl({
+      provider: provider,
+    });
+
+    this.map.addControl(searchControl);
+
+    // add markers
   }
+
+  toggleHeatMap() {
+    if(this.state.heatMapActive) {
+      this.map.removeLayer(heat);
+    }
+    else {
+      this.map.addLayer(heat);
+    }
+    this.setState({ heatMapActive: !this.state.heatMapActive })
+  }
+
+  // toggleMarkers() {
+  //   let markers = [
+  //     [49.25765089, -123.2639868, 1, 'severe'],
+  //     [49.26765089, -123.26398688, 1, 'mild'],
+  //     [49.25765089, -123.2939868, 1, 'moderate'],
+  //     [49.23765089, -123.2439868, 1, 'severe']
+  //   ]
+
+  //   markers.map(val => {
+  //     let coordinates = val.slice(0, 2).map(i => i);
+  //     console.log('coordinates', coordinates)
+  //     if(this.state.active)
+  //     let marker = L.marker(coordinates).addTo(this.map);
+  //     marker.bindPopup(val[3]).openPopup();
+  //   })
+  // }
+
   render() {
-    return <div id="map" style={{height: "90vh"}}></div>
+    return (
+      <div id="map-container" style={{height: "90vh"}}>
+        <div id="map" style={{height: "100%"}}></div>  
+        <button onClick={this.toggleHeatMap} className="btn btn-toggleMap">Toggle Heat Map</button>
+        {/* <button onClick={this.toggleHeatMap} className="btn btn-toggleMarkers">Toggle Markers</button> */}
+      </div>
+    )
   }
 }
 
