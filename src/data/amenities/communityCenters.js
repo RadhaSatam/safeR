@@ -1,0 +1,31 @@
+const communityCenters = [
+  ["0","Britannia","1661 Napier St","http://vancouver.ca/parks/cc/britannia/index.htm","494631.927318","5458096.28035"  ],
+  ["1","Carnegie Centre","401 Main St","http://vancouver.ca/commsvcs/CARNEGIECENTRE/index.","492719.724814","5458709.91889"  ],
+  ["2","Roundhouse","181 Roundhouse Mews","http://vancouver.ca/parks/cc/roundhouse/index.htm","491147.360772","5457845.09297"  ],
+  ["3","Coal Harbour","480 Broughton St","http://vancouver.ca/parks/cc/westend/index.htm","490844.975606","5459724.37752"  ],
+  ["4","Marpole-Oakridge","990 W 59th Av","http://vancouver.ca/parks/cc/marpole/index.htm","490714.441469","5451308.99612"  ],
+  ["5","Mount Pleasant","1 Kingsway","http://vancouver.ca/parks/cc/mtpleasant/index.htm","492709.9766","5456842.264"  ],
+  ["6","Renfrew Park","2929 E 22nd Av","http://vancouver.ca/parks/cc/renfrew/index.htm","496870.794414","5455515.39744"  ],
+  ["7","Hillcrest","4575 Clancy Loranger Way","http://vancouver.ca/parks-recreation-culture/hillc","492146.513786","5454564.04696"  ],
+  ["8","Strathcona","601 Keefer St","http://vancouver.ca/parks/cc/strathcona/index.htm","493345.027995","5458564.60438"  ],
+  ["9","Sunset","6810 Main St","http://vancouver.ca/parks/cc/sunset/index.htm","492674.753444","5452239.86696"  ],
+  ["10","Thunderbird","2311 Cassiar St","http://vancouver.ca/parks/cc/thunderbird/index.htm","497664.540149","5456760.11035"  ],
+  ["11","Trout Lake","3350 Victoria Drive","http://vancouver.ca/parks/cc/troutlake/index.htm","495473.860387","5455872.11373"  ],
+  ["12","West End","870 Denman St","http://vancouver.ca/parks/cc/westend/index.htm","490103.206071","5459692.31175"  ],
+  ["13","West Point Grey","4397 W 2nd Av","http://vancouver.ca/parks/cc/westptgrey/index.htm","485123.917433","5457691.33055"  ],
+  ["14","False Creek","1318 Cartwright St","http://vancouver.ca/parks/cc/falsecreek/index.htm","490251.87227","5457413.04117"  ],
+  ["15","Champlain Heights","3350 Maquinna Drive","http://vancouver.ca/parks/cc/champla/index.htm","497662.219109","5451290.55237"  ],
+  ["16","Ray-Cam Co-Operative Center","920 E Hastings St","http://vancouver.ca/parks/cc/raycam/index.htm","493883.355558","5458664.03289"  ],
+  ["17","Douglas Park","801 W 22nd Av","http://vancouver.ca/parks/cc/douglas/index.htm","491172.819357","5455577.17189"  ],
+  ["18","Dunbar","4747 Dunbar St","http://vancouver.ca/parks/cc/dunbar/index.htm","486294.336848","5454464.33511"  ],
+  ["19","Hastings","3096 E Hastings St","http://vancouver.ca/parks/cc/hastings/index.htm","497141.698401","5458683.60766"  ],
+  ["20","Kensington","5175 Dumfries St","http://vancouver.ca/parks/cc/kensington/index.htm","494504.154855","5453971.98746"  ],
+  ["21","Kerrisdale","5851 West Boulevard","http://vancouver.ca/parks/cc/kerrisdale/index.htm","488563.052536","5453391.92004"  ],
+  ["22","Killarney","6260 Killarney St","http://vancouver.ca/parks/cc/killarney/index.htm","496767.281976","5452736.20899"  ],
+  ["23","Kitsilano War Memorial","2690 Larch St","http://vancouver.ca/parks/cc/kitsilano/index.htm","488351.452126","5456605.19045"  ],
+  ["24","Creekside","1 Athletes Way","http://vancouver.ca/parks/cc/creekside/index.htm","492318.265626","5457676.57675"  ],
+  ["25","Evelyne Saller Centre","320 Alexander St","http://vancouver.ca/parks-recreation-culture/evely","492938.31468","5459020.91226"  ],
+  ["26","Gathering Place Community Cent","609 Helmcken St","http://vancouver.ca/parks-recreation-culture/gathe","491017.279654","5458367.80688"  ]
+];
+
+export default communityCenters;

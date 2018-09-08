@@ -3,6 +3,14 @@ import L from 'leaflet';
 import "leaflet.heat";
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import "../css/MapComponent.css"
+import proj4 from "proj4";
+
+import communityCenters from '../data/amenities/communityCenters';
+import hospitals from '../data/amenities/hospitals';
+import parkPoints from '../data/amenities/parkPoints';
+import seniorCenters from '../data/amenities/seniorCenters';
+import seniorHomes from '../data/amenities/seniorHomes';
+
 
 var heat = null;
 class Map extends React.Component {
@@ -10,13 +18,6 @@ class Map extends React.Component {
     super(props);
     this.state = {
       heatMapActive: true,
-      markers: [
-        [49.25765089, -123.2639868, 1, 'severe'],
-        [49.26765089, -123.26398688, 1, 'mild'],
-        [49.25765089, -123.2939868, 1, 'moderate'],
-        [49.23765089, -123.2439868, 1, 'severe']
-      ],
-      markersActive: false
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
     this.toggleMarkers = this.toggleMarkers.bind(this);
@@ -68,7 +69,11 @@ class Map extends React.Component {
     this.map.addControl(searchControl);
 
     // add markers
-    this.toggleMarkers()
+    this.toggleMarkers();
+
+    // add all the pointers 
+    // add community center markers 
+    this.toggleMarkers('communityCenters', true);
   }
 
   toggleHeatMap() {
@@ -81,18 +86,42 @@ class Map extends React.Component {
     this.setState({ heatMapActive: !this.state.heatMapActive })
   }
 
-  toggleMarkers() {
-    this.state.markers.map(val => {
-      let coordinates = val.slice(0, 2).map(i => i);
-      // console.log('coordinates', coordinates)
-      if(this.state.markersActive) {
-        this.map.removeLayer()
+  toggleMarkers(type, trigger) {
+    if(trigger) {
+      let dataToUse = null;
+      switch(type) {
+        case 'communityCenters': {
+          dataToUse = communityCenters;
+          break;
+        }
+        case 'hospitals': {
+          dataToUse = hospitals;
+          break;
+        }
+        case 'parkPoints': {
+          dataToUse = parkPoints;
+          break;
+        }
+        case 'seniorCenters': {
+          dataToUse = seniorCenters;
+          break;
+        }
+        case 'seniorHomes': {
+          dataToUse = seniorHomes;
+          break;
+        }
       }
-      else {
+      dataToUse.map(val => {
+        let coordinates = val.splice(4, 6).map(i => parseFloat(i));
+        // console.log('coordinates', coordinates)
+        var utm = "+proj=utm +zone=10";
+        var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+        coordinates = proj4(utm,wgs84,coordinates); // convert utm 10 to lat long
+        coordinates = coordinates.reverse();
         let marker = L.marker(coordinates).addTo(this.map);
-        marker.bindPopup(val[3]).openPopup();
-      }
-    })
+        marker.bindPopup(val[1]).openPopup();
+      })
+    }
   }
 
   render() {
@@ -100,7 +129,7 @@ class Map extends React.Component {
       <div id="map-container" style={{height: "90vh"}}>
         <div id="map" style={{height: "100%"}}></div>  
         <button onClick={this.toggleHeatMap} className="btn btn-toggleMap">Toggle Heat Map</button>
-        <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button>
+        {/* <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button> */}
       </div>
     )
   }
