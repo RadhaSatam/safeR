@@ -9,9 +9,17 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      heatMapActive: true
+      heatMapActive: true,
+      markers: [
+        [49.25765089, -123.2639868, 1, 'severe'],
+        [49.26765089, -123.26398688, 1, 'mild'],
+        [49.25765089, -123.2939868, 1, 'moderate'],
+        [49.23765089, -123.2439868, 1, 'severe']
+      ],
+      markersActive: false
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
+    this.toggleMarkers = this.toggleMarkers.bind(this);
   }
   
   componentDidMount() {
@@ -60,6 +68,7 @@ class Map extends React.Component {
     this.map.addControl(searchControl);
 
     // add markers
+    this.toggleMarkers()
   }
 
   toggleHeatMap() {
@@ -72,29 +81,26 @@ class Map extends React.Component {
     this.setState({ heatMapActive: !this.state.heatMapActive })
   }
 
-  // toggleMarkers() {
-  //   let markers = [
-  //     [49.25765089, -123.2639868, 1, 'severe'],
-  //     [49.26765089, -123.26398688, 1, 'mild'],
-  //     [49.25765089, -123.2939868, 1, 'moderate'],
-  //     [49.23765089, -123.2439868, 1, 'severe']
-  //   ]
-
-  //   markers.map(val => {
-  //     let coordinates = val.slice(0, 2).map(i => i);
-  //     console.log('coordinates', coordinates)
-  //     if(this.state.active)
-  //     let marker = L.marker(coordinates).addTo(this.map);
-  //     marker.bindPopup(val[3]).openPopup();
-  //   })
-  // }
+  toggleMarkers() {
+    this.state.markers.map(val => {
+      let coordinates = val.slice(0, 2).map(i => i);
+      // console.log('coordinates', coordinates)
+      if(this.state.markersActive) {
+        this.map.removeLayer()
+      }
+      else {
+        let marker = L.marker(coordinates).addTo(this.map);
+        marker.bindPopup(val[3]).openPopup();
+      }
+    })
+  }
 
   render() {
     return (
       <div id="map-container" style={{height: "90vh"}}>
         <div id="map" style={{height: "100%"}}></div>  
         <button onClick={this.toggleHeatMap} className="btn btn-toggleMap">Toggle Heat Map</button>
-        {/* <button onClick={this.toggleHeatMap} className="btn btn-toggleMarkers">Toggle Markers</button> */}
+        <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button>
       </div>
     )
   }

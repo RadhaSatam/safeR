@@ -28,3 +28,19 @@
 #map-container .btn-toggleMap:hover {
     background: #fafafa;
 }
+
+#map-container .btn-toggleMarkers {
+    text-decoration: none;
+    border: none;
+    padding: 10px;
+    background: #fff;
+    color: #000;
+    position: absolute;
+    bottom: 60px;
+    left: 10px;
+    z-index: 9999;
+}
+
+#map-container .btn-toggleMarkers {
+    background: #fafafa;
+}
