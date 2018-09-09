@@ -144,11 +144,16 @@ class Map extends React.Component {
     }
   }
 
+  report() {
+    console.log('report')
+  }
+
   render() {
     return (
       <div id="map-container" style={{height: "90vh"}}>
         <div id="map" style={{height: "100%"}}></div>  
         <button onClick={this.toggleHeatMap} className="btn btn-toggleMap">Toggle Heat Map</button>
+        <button onClick={this.report} className="btn btn-reportButton">Report A Collision</button>
         {/* <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button> */}
       </div>
     )
