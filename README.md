@@ -18,29 +18,32 @@ https://goo.gl/d1BsoK
 Install the node modules
 > npm install 
 
-Start (Port 3000)
+Start (Port: 3000)
 > npm start
 
 ## Dependencies
 
-* [React]
+* React
   (https://github.com/facebook/react)
 
-* [Leaflet]
+* Leaflet
   (https://github.com/PaulLeCam/react-leaflet)
 
-* [Leaflet Heatmap]
+* Leaflet Heatmap
   (https://github.com/Leaflet/Leaflet.heat)
 
-* [Leaflet Geosearch]
+* Leaflet Geosearch
   (https://github.com/smeijer/leaflet-geosearch)
   
 * Heroku (to deploy)
 
 * Firebase (for watcher)
 
+## Screenshots
 
+### Demo
 ![Demo Screenshot](/screenshot/demo.png)
+
+### Alert
 ![Alert](/screenshot/alert.png)
-![Report Collision](/screenshot/collision.png)
 
