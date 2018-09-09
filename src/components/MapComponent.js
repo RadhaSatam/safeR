@@ -99,11 +99,14 @@ class Map extends React.Component {
     this.toggleReportedIncidents(true);
   }
 
+  componentDidUnmount() {
+    firebaseDb.ref(`/collisionReport`).off();
+  }
+
   toggleReportedIncidents(trigger) {
     if(trigger) {
-      firebaseDb.ref(`/collisionReport`).once('value').then(snap => {
+      firebaseDb.ref(`/collisionReport`).on('value', snap => {
         let snapVals = snap && snap.val() ? snap.val() : null;
-        console.log('snap val', snapVals)
         for(let i in snapVals) {
           if(snapVals[i].latitude && snapVals[i].longitude) {
             let marker = L.marker([snapVals[i].latitude, snapVals[i].longitude]).addTo(this.map);
@@ -118,7 +121,6 @@ class Map extends React.Component {
     else {
       if(this.state.reportedCollisions && Object.keys(this.state.reportedCollisions).length > 0) {
         for(let i in this.state.reportedCollisions) {
-          console.log('i', i)
           this.map.removeLayer(this.state.reportedCollisions[i]); // remove
         }
         this.setState({ reportedCollisions: {} })
