@@ -16,11 +16,14 @@ https://goo.gl/d1BsoK
 ### Run Instructions
 
 Install the node modules
-> npm install 
+```
+npm install 
+```
 
 Start (Port: 3000)
-> npm start
-
+```
+npm start
+```
 ## Dependencies
 
 * React
