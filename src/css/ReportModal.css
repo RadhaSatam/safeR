@@ -1,0 +1,46 @@
+.reportModal-title {
+    padding-left: 15px;
+}
+
+.reportModal-form fieldset {
+    border: none;
+}
+
+.reportModal-form fieldset .label {
+    display: block;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    color:#A8A8A8;
+    font-size: 0.7em;
+}
+
+.reportModal-form input {
+    border: 1px solid #d9d9d9;
+    display: block;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.reportModal-form select {
+    padding: 10px;
+}
+
+.btn-divs {
+    text-align: right;
+    padding-top: 30px;
+}
+
+.btn.btn-modalBtns {
+    text-align: right;
+    background: #ffffff;
+    border: 2px solid #ffd200;
+    padding: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.btn.btn-modalBtns:hover {
+    background: #ffd200;
+    color: #ffffff;
+}
+
