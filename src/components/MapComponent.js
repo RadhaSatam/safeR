@@ -84,7 +84,8 @@ class Map extends React.Component {
           iconToUse = null,
           xLoc = 0,
           yLoc = 1,
-          convertUTMtoLatLong = false;
+          convertUTMtoLatLong = false,
+          titleLoc = 1;
       switch(type) {
         case 'communityCenters': {
           dataToUse = communityCenters;
@@ -107,6 +108,7 @@ class Map extends React.Component {
           iconToUse= parkPointsIcon;
           xLoc = 1;
           yLoc = 3;
+          titleLoc = 0;
           break;
         }
         case 'seniorCenters': {
@@ -137,7 +139,7 @@ class Map extends React.Component {
         }
         let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
         // let marker = L.marker(coordinates).addTo(this.map);
-        marker.bindPopup(val[1]).openPopup();
+        marker.bindPopup(val[titleLoc]).openPopup();
       })
     }
   }
