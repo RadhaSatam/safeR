@@ -1,7 +1,7 @@
 # safeR 
 
 ## Introduction
-Safer is an app that leverages the CityFlux’s simulation technology to to create a prescriptive model that would help increase safety for seniors & allow decision makers to
+Safer is an app that leverages the multi-agent reinforcement learning technology along with collision data to generate a prescriptive risk model that would help increase safety for seniors & allow decision makers to make sound decision for them.
 
 ## Links
 
