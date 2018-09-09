@@ -17,27 +17,27 @@ class ToggleFeatures extends Component {
                 </fieldset>
 
                 <fieldset>
-                    <input type="checkbox" defaultChecked={true} />
-                    <img src={community} alt="community"/>
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("communityCenters", e.target.checked)} defaultChecked={true} />
+                    <img src={community} alt="communityCenters"/>
                     <label>Community Centers</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" defaultChecked={true} />
-                    <img src={park} alt="park" />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("parkPoints", e.target.checked)} defaultChecked={true} />
+                    <img src={park} alt="parkPoints" />
                     <label>Parks</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" defaultChecked={true} />
-                    <img src={hospital} alt="hospital" />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("hospitals", e.target.checked)} defaultChecked={true} />
+                    <img src={hospital} alt="hospitals" />
                     <label>Hospitals</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" defaultChecked={true} />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("seniorHomes", e.target.checked)} defaultChecked={true} />
                     <img src={seniorHomes} alt="seniorHomes" />
                     <label>Senior Homes</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" defaultChecked={true} />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("seniorCenters", e.target.checked)} defaultChecked={true} />
                     <img src={seniorCenters} alt="seniorCenters" />
                     <label>Senior Centers</label>
                 </fieldset>

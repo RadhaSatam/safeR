@@ -29,6 +29,13 @@ class Map extends React.Component {
     super(props);
     this.state = {
       heatMapActive: true,
+      markers: { 
+                  communityCenters: {},
+                  hospitals: {},
+                  parkPoints: {},
+                  seniorCenters: {},
+                  seniorHomes: {},
+              } 
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
     this.toggleMarkers = this.toggleMarkers.bind(this);
@@ -81,57 +88,62 @@ class Map extends React.Component {
   }
 
   toggleMarkers(type, trigger) {
-    if(trigger) {
-      let dataToUse = null,
-          iconToUse = null,
-          xLoc = 0,
-          yLoc = 1,
-          convertUTMtoLatLong = false,
-          titleLoc = 1;
-      switch(type) {
-        case 'communityCenters': {
-          dataToUse = communityCenters;
-          iconToUse= communityCentersIcon;
-          xLoc = 4;
-          yLoc = 6;
-          convertUTMtoLatLong = true;
-          break;
-        }
-        case 'hospitals': {
-          dataToUse = hospitals;
-          iconToUse= hospitalsIcon;
-          xLoc = 2;
-          yLoc = 4;
-          convertUTMtoLatLong = true;
-          break;
-        }
-        case 'parkPoints': {
-          dataToUse = parkPoints;
-          iconToUse= parkPointsIcon;
-          xLoc = 1;
-          yLoc = 3;
-          titleLoc = 0;
-          break;
-        }
-        case 'seniorCenters': {
-          dataToUse = seniorCenters;
-          iconToUse= seniorCentersIcon;
-          xLoc = 2;
-          yLoc = 4;
-          convertUTMtoLatLong = true;
-          break;
-        }
-        case 'seniorHomes': {
-          dataToUse = seniorHomes;
-          iconToUse= seniorHomesIcon;
-          xLoc = 6;
-          yLoc = 8;
-          convertUTMtoLatLong = true;
-          break;
-        }
+    let dataToUse = null,
+        iconToUse = null,
+        xLoc = 0,
+        yLoc = 1,
+        convertUTMtoLatLong = false,
+        titleLoc = 1;
+    switch(type) {
+      case 'communityCenters': {
+        dataToUse = communityCenters;
+        iconToUse= communityCentersIcon;
+        xLoc = 4;
+        yLoc = 6;
+        convertUTMtoLatLong = true;
+        break;
       }
-      dataToUse.map(val => {
-        let coordinates = val.splice(xLoc, yLoc).map(i => parseFloat(i));
+      case 'hospitals': {
+        dataToUse = hospitals;
+        iconToUse= hospitalsIcon;
+        xLoc = 2;
+        yLoc = 4;
+        convertUTMtoLatLong = true;
+        break;
+      }
+      case 'parkPoints': {
+        dataToUse = parkPoints;
+        iconToUse= parkPointsIcon;
+        xLoc = 1;
+        yLoc = 3;
+        titleLoc = 0;
+        break;
+      }
+      case 'seniorCenters': {
+        dataToUse = seniorCenters;
+        iconToUse= seniorCentersIcon;
+        xLoc = 2;
+        yLoc = 4;
+        convertUTMtoLatLong = true;
+        break;
+      }
+      case 'seniorHomes': {
+        dataToUse = seniorHomes;
+        iconToUse= seniorHomesIcon;
+        xLoc = 6;
+        yLoc = 8;
+        convertUTMtoLatLong = true;
+        break;
+      }
+    };
+
+    // console.log('data', dataToUse)
+
+    if(trigger && trigger === true) {
+      console.log("init state", this.state.markers)
+      let stateToUpdate = this.state.markers;
+      dataToUse.map((val, index) => {
+        let coordinates = val.slice(xLoc, yLoc).map(i => parseFloat(i));
         if(convertUTMtoLatLong) {
           // console.log('coordinates', coordinates)
           var utm = "+proj=utm +zone=10";
@@ -142,7 +154,18 @@ class Map extends React.Component {
         let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
         // let marker = L.marker(coordinates).addTo(this.map);
         marker.bindPopup(val[titleLoc]).openPopup();
+        stateToUpdate = {...stateToUpdate, [type]: { ...stateToUpdate[type], [index]: marker }}
       })
+      console.log('tyoe', type, stateToUpdate)
+      this.setState({ markers: stateToUpdate })
+    } else {
+      console.log('this.state', this.state)
+      if (this.state.markers && this.state.markers[type]) { // check
+        dataToUse.map((val, index) => {
+          // console.log('ss', index, this.state.markers[type][index])
+          this.map.removeLayer(this.state.markers[type][index]); // remove
+        })
+      }
     }
   }
 
@@ -156,6 +179,7 @@ class Map extends React.Component {
         <div id="map" style={{height: "100%"}}></div>  
         <ToggleFeatures 
           toggleHeatMap={this.toggleHeatMap}
+          toggleMarkers={this.toggleMarkers}
         />
         {/* <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button> */}
       </div>
