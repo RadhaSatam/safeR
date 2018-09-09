@@ -8,15 +8,29 @@ import seniorCenters from '../imgs/seniorCenters.png';
 import seniorHomes from '../imgs/seniorHomes.png';
 import logo from "../imgs/logo/logo.png";
 
+import slideUp from "../imgs/slide-up.png";
+import slideDown from "../imgs/slide-down.png";
+
+
 class ToggleFeatures extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            expanded: false
+        };
+        this.toggleExpand = this.toggleExpand.bind(this);
+    }
+    toggleExpand() {
+        this.setState({ expanded: !this.state.expanded })
+    }
     render() {
         return (
             <div className="toggle-features">
                 <div id="logo-container">
                     <img id="logo" src={logo} alt="safeR" />
                 </div>
-
-
+                {this.state.expanded &&
+                <React.Fragment>
                 <fieldset>
                     <input onClick={this.props.toggleHeatMap} defaultChecked={true} type="checkbox" />
                     <label>Risk Heat Map</label>
@@ -47,8 +61,13 @@ class ToggleFeatures extends Component {
                     <img src={seniorCenters} alt="seniorCenters" />
                     <label>Senior Centers</label>
                 </fieldset>
-
+                </React.Fragment>
+                }
                 <ReportModal />
+
+                <div className="expand-collapse">
+                    <button onClick={this.toggleExpand}><img className="toggle-img" src={this.state.expanded ? slideUp : slideDown} alt={this.state.expanded ? 'Collapse' : 'Expand'} /></button>
+                </div>
             </div>
         )
     }

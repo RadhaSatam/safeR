@@ -53,12 +53,13 @@ class ReportModal extends Component {
         if(this.props.isGeolocationAvailable && this.props.coords && this.props.coords.latitude && this.props.coords.longitude) {
             let latitude = this.props.coords.latitude,
                 longitude = this.props.coords.longitude;
-            axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e02c5e2e62d14e10969c7001c429d041`).then(result => {
-                console.log('hiresu', result);
-                if(result && result.data && result.data.results && result.data.results[0]) {
-                    this.setState({ location: result.data.results[0].formatted, latitude, longitude })
-                }
-            })
+                // uncomment before deploy
+            // axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e02c5e2e62d14e10969c7001c429d041`).then(result => {
+            //     console.log('hiresu', result);
+            //     if(result && result.data && result.data.results && result.data.results[0]) {
+            //         this.setState({ location: result.data.results[0].formatted, latitude, longitude })
+            //     }
+            // })
         }
     }
 
@@ -151,7 +152,7 @@ class ReportModal extends Component {
                 </Modal>
                 }
                 <div className="btn-container">
-                    <button onClick={this.openModal} className="btn btn-reportButton">Report</button>
+                    <button onClick={this.openModal} className="btn btn-reportButton">Report a Collision</button>
                 </div>
             </div>
         )

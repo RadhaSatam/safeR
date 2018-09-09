@@ -50,6 +50,7 @@
     padding: 10px;
     font-weight: bold;
     margin: 20px;
+    width: 70%;
 }
 
 #map-container .btn-reportButton:hover {
@@ -58,3 +59,7 @@
 }
 /* #ffd200 */
 /* #ff0000 */
+
+.btn:focus {
+    border: none;
+}

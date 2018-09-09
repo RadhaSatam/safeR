@@ -60,6 +60,7 @@ fieldset {
     position: absolute;
     left: 25px;
     top: 25px;
+    min-width: 253.17px;
     -webkit-box-shadow: 8px 10px 10px -6px #777;
     -moz-box-shadow: 8px 10px 10px -6px #777;
          box-shadow: 8px 10px 10px -6px #777;
@@ -68,4 +69,13 @@ fieldset {
 .toggle-features fieldset img {
     padding: 0 10px;
 }
-
+.toggle-features .expand-collapse {
+    text-align: center;
+}
+.toggle-features .expand-collapse button {
+    background: white;
+    border: none;
+}
+.toggle-features .toggle-img {
+    width: 30px;
+}
