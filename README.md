@@ -22,6 +22,6 @@ Install the node modules
 Start 
 > npm start
 
-![Demo Screenshot](/relative/path/to/img.jpg?raw=true "Demo Screenshot")
-![Alt text](/relative/path/to/img.jpg?raw=true "Collision")
-![Alert](/relative/path/to/img.jpg?raw=true "Alert")
+![Demo Screenshot]("./screenshots/demo.png")
+![Alert]("./screenshots/alert.png")
+![Report Collision]("./screenshots/collision.png")
