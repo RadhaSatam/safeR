@@ -1,9 +1,7 @@
 # safeR 
-
-## Introduction
-
 ![safeR logo](/screenshot/logo.png)
 
+## Introduction
 safeR is an app that leverages the Multi-Agent Reinforcement Learning technology along with collision data to generate a prescriptive risk model that would help increase safety for seniors & allow decision makers to make sound decision for them. The risk was generated using spatial logistic regression using Collions Time, Gender, Age, Mode, Collions month and simulated pedestrian density at each location.  This app has been developed in Vanquish Collions Hackathon for the city of Vancouver. 
 
 ## Links
