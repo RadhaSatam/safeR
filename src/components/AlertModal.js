@@ -33,7 +33,7 @@ class AlertModal extends Component {
                     <h2 style={{color: 'red', paddingLeft: '15px'}} className="alertModal-title" ref={subtitle => this.subtitle = subtitle}>Watch Out!</h2>
                     <p className="sub-text">A collision was reported in your area</p>
                     <div className="btn-divs">
-                        <button className="btn btn-modalBtns" onClick={this.closeModal}>Close</button>
+                        <button className="btn btn-modalBtns" onClick={this.props.closeAlertModal}>Close</button>
                     </div>
                 </Modal>
                 }
