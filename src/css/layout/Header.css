@@ -1,5 +1,5 @@
 .header {
-    background: #333;
+    background: #fafafa;
     height: 10vh;
     display: flex;
     display: flex;
@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-.header span {
+/* .header span {
     font-size: 2em;
     font-weight: bold;
     color: #fff;
@@ -15,4 +15,9 @@
 
 .header .green {
     color: #42f48f;
+} */
+
+.header #logo {
+    width: 160px;
+    height: auto;
 }

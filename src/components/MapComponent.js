@@ -11,6 +11,15 @@ import parkPoints from '../data/amenities/parkPoints';
 import seniorCenters from '../data/amenities/seniorCenters';
 import seniorHomes from '../data/amenities/seniorHomes';
 
+import { heatMapPoints } from '../data/heatMapPoints';
+
+import {
+  communityCentersIcon,
+  hospitalsIcon,
+  parkPointsIcon,
+  seniorCentersIcon,
+  seniorHomesIcon
+} from '../data/icons';
 
 var heat = null;
 class Map extends React.Component {
@@ -35,29 +44,8 @@ class Map extends React.Component {
       ]
     });
 
-    // add heatmap
-    let addressPoints = [
-      [49.25765089, -123.2639868, 1],
-      [48.25765089, -123.2639868, 1],
-      [55.25765089, -111.2639868, 1],
-      [49.25765089, -122.2639868, 1],
-      [53.25765089, -123.2639868, 1],
-      [49.25765089, -129.26, 1]
-    ]
-    for(let i=0;i<1000; i++){
-      addressPoints.push([49.25765089+(Math.random()*7-3),
-                        -123.2639868+(Math.random()*7-3),
-                        0.65]);
-    }
-
-    for(let i=0;i<1000; i++){
-      addressPoints.push([49.25765089+(Math.random()*7-3),
-                        -123.2639868+(Math.random()*7-3),
-                        1]);
-    }
     
-    
-    heat = L.heatLayer(addressPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.4: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
+    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.4: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
@@ -74,6 +62,10 @@ class Map extends React.Component {
     // add all the pointers 
     // add community center markers 
     this.toggleMarkers('communityCenters', true);
+    this.toggleMarkers('hospitals', true);
+    this.toggleMarkers('parkPoints', true);
+    this.toggleMarkers('seniorCenters', true);
+    this.toggleMarkers('seniorHomes', true);
   }
 
   toggleHeatMap() {
@@ -88,36 +80,62 @@ class Map extends React.Component {
 
   toggleMarkers(type, trigger) {
     if(trigger) {
-      let dataToUse = null;
+      let dataToUse = null,
+          iconToUse = null,
+          xLoc = 0,
+          yLoc = 1,
+          convertUTMtoLatLong = false;
       switch(type) {
         case 'communityCenters': {
           dataToUse = communityCenters;
+          iconToUse= communityCentersIcon;
+          xLoc = 4;
+          yLoc = 6;
+          convertUTMtoLatLong = true;
           break;
         }
         case 'hospitals': {
           dataToUse = hospitals;
+          iconToUse= hospitalsIcon;
+          xLoc = 2;
+          yLoc = 4;
+          convertUTMtoLatLong = true;
           break;
         }
         case 'parkPoints': {
           dataToUse = parkPoints;
+          iconToUse= parkPointsIcon;
+          xLoc = 1;
+          yLoc = 3;
           break;
         }
         case 'seniorCenters': {
           dataToUse = seniorCenters;
+          iconToUse= seniorCentersIcon;
+          xLoc = 2;
+          yLoc = 4;
+          convertUTMtoLatLong = true;
           break;
         }
         case 'seniorHomes': {
           dataToUse = seniorHomes;
+          iconToUse= seniorHomesIcon;
+          xLoc = 6;
+          yLoc = 8;
+          convertUTMtoLatLong = true;
           break;
         }
       }
       dataToUse.map(val => {
-        let coordinates = val.splice(4, 6).map(i => parseFloat(i));
-        // console.log('coordinates', coordinates)
-        var utm = "+proj=utm +zone=10";
-        var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
-        coordinates = proj4(utm,wgs84,coordinates); // convert utm 10 to lat long
-        coordinates = coordinates.reverse();
+        let coordinates = val.splice(xLoc, yLoc).map(i => parseFloat(i));
+        if(convertUTMtoLatLong) {
+          // console.log('coordinates', coordinates)
+          var utm = "+proj=utm +zone=10";
+          var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+          coordinates = proj4(utm,wgs84,coordinates); // convert utm 10 to lat long
+          coordinates = coordinates.reverse();
+        }
+        // let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
         let marker = L.marker(coordinates).addTo(this.map);
         marker.bindPopup(val[1]).openPopup();
       })
