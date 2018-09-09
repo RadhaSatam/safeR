@@ -1,8 +1,8 @@
 
 /* grayscale */
 .leaflet-tile-pane {
-    -webkit-filter: grayscale(80%);
-    filter: grayscale(80%);
+    -webkit-filter: grayscale(90%);
+    filter: grayscale(90%);
 }
 
 /* geosearch form css */
