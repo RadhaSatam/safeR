@@ -35,8 +35,8 @@ class Map extends React.Component {
   componentDidMount() {
     // create map
     this.map = L.map('map', {
-      center: [49.25765089, -123.2639868],
-      zoom: 11,
+      center: [49.2870715, -123.1364628],
+      zoom: 15,
       layers: [
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -45,7 +45,7 @@ class Map extends React.Component {
     });
 
     
-    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.4: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
+    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
@@ -135,8 +135,8 @@ class Map extends React.Component {
           coordinates = proj4(utm,wgs84,coordinates); // convert utm 10 to lat long
           coordinates = coordinates.reverse();
         }
-        // let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
-        let marker = L.marker(coordinates).addTo(this.map);
+        let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
+        // let marker = L.marker(coordinates).addTo(this.map);
         marker.bindPopup(val[1]).openPopup();
       })
     }
