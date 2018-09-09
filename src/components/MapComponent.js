@@ -17,6 +17,8 @@ import { heatMapPoints } from '../data/heatMapPoints';
 
 import ToggleFeatures from './ToggleFeatures';
 
+import {geolocated } from 'react-geolocated';
+
 import {
   communityCentersIcon,
   hospitalsIcon,
@@ -39,11 +41,13 @@ class Map extends React.Component {
                   seniorCenters: {},
                   seniorHomes: {},
               },
-      reportedCollisions: {}
+      reportedCollisions: {},
+      sessionId: null
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
     this.toggleMarkers = this.toggleMarkers.bind(this);
     this.toggleReportedIncidents = this.toggleReportedIncidents.bind(this);
+    this.addSessionId = this.addSessionId.bind(this);
   }
   
   componentDidMount() {
@@ -99,10 +103,36 @@ class Map extends React.Component {
     // )
 
     this.toggleReportedIncidents(true);
+
+    // add an id for this session
+    this.addSessionId();
+
   }
 
   componentWillUnmount() {
     firebaseDb.ref(`/collisionReport`).off();
+    firebaseDb.ref(`/session/${this.state.sessionId}`).off
+    firebaseDb.ref(`/session/${this.state.sessionId}`).set(null);
+  }
+
+  addSessionId() {
+    setTimeout(() => {
+    if(this.props.isGeolocationAvailable && this.props.coords && this.props.coords.latitude && this.props.coords.longitude) {
+      let latitude = this.props.coords.latitude,
+          longitude = this.props.coords.longitude;
+
+      let sessionId = firebaseDb.ref(`/session`).push().key;
+      
+      firebaseDb.ref(`/session/${sessionId}`).set({ latitude, longitude });
+      this.setState({ sessionId })
+
+      firebaseDb.ref(`/session/${sessionId}`).on('value', snap => {
+        if(snap && snap.val() && snap.val().alert) {
+          console.log("ALERT! Something happened in your area");
+        }
+      })
+    }
+    }, 2000);
   }
 
   toggleReportedIncidents(trigger) {
@@ -232,4 +262,9 @@ class Map extends React.Component {
   }
 }
 
-export default Map;
+export default geolocated({
+  positionOptions: {
+    enableHighAccuracy: true,
+  },
+  userDecisionTimeout: 5000,
+})(Map);
