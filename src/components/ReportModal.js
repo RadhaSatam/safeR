@@ -79,7 +79,8 @@ class ReportModal extends Component {
             severity: this.state.severity,
             type: this.state.type,
             latitude: this.state.latitude,
-            longitude: this.state.longitude
+            longitude: this.state.longitude,
+            date: new Date()
         }
 
         // add data to firebase

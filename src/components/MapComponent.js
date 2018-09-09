@@ -11,6 +11,8 @@ import parkPoints from '../data/amenities/parkPoints';
 import seniorCenters from '../data/amenities/seniorCenters';
 import seniorHomes from '../data/amenities/seniorHomes';
 
+import { firebaseDb } from "../utils/firebaseConfig";
+
 import { heatMapPoints } from '../data/heatMapPoints';
 
 import ToggleFeatures from './ToggleFeatures';
@@ -35,10 +37,12 @@ class Map extends React.Component {
                   parkPoints: {},
                   seniorCenters: {},
                   seniorHomes: {},
-              } 
+              },
+      reportedCollisions: {}
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
     this.toggleMarkers = this.toggleMarkers.bind(this);
+    this.toggleReportedIncidents = this.toggleReportedIncidents.bind(this);
   }
   
   componentDidMount() {
@@ -91,6 +95,35 @@ class Map extends React.Component {
     ).then(() => 
     this.toggleMarkers('seniorHomes', true)
     )
+
+    this.toggleReportedIncidents(true);
+  }
+
+  toggleReportedIncidents(trigger) {
+    if(trigger) {
+      firebaseDb.ref(`/collisionReport`).once('value').then(snap => {
+        let snapVals = snap && snap.val() ? snap.val() : null;
+        console.log('snap val', snapVals)
+        for(let i in snapVals) {
+          if(snapVals[i].latitude && snapVals[i].longitude) {
+            let marker = L.marker([snapVals[i].latitude, snapVals[i].longitude]).addTo(this.map);
+            marker.bindPopup(`<div><b>Reported By:</b> ${snapVals[i].name}<br/><b>Incident Type:</b> ${snapVals[i].type}<br/><b>Severity:</b> ${snapVals[i].severity}</div>`).openPopup();
+            this.setState({
+              reportedCollisions: {...this.state.reportedCollisions, [i]: marker }
+            });
+          }
+        }
+      })
+    }
+    else {
+      if(this.state.reportedCollisions && Object.keys(this.state.reportedCollisions).length > 0) {
+        for(let i in this.state.reportedCollisions) {
+          console.log('i', i)
+          this.map.removeLayer(this.state.reportedCollisions[i]); // remove
+        }
+        this.setState({ reportedCollisions: {} })
+      }
+    }
   }
 
   // toggles the heat map
@@ -188,6 +221,7 @@ class Map extends React.Component {
         <ToggleFeatures 
           toggleHeatMap={this.toggleHeatMap}
           toggleMarkers={this.toggleMarkers}
+          toggleReportedIncidents={this.toggleReportedIncidents}
         />
       </div>
     )

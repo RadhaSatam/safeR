@@ -37,6 +37,12 @@ class ToggleFeatures extends Component {
                 </fieldset>
 
                 <fieldset>
+                    <input type="checkbox" onClick={(e) => this.props.toggleReportedIncidents(e.target.checked)} defaultChecked={true} />
+                    {/* <img src={reportedIncidents} alt="reportedIncidents" /> */}
+                    <label>Reported Incidents</label>
+                </fieldset>
+
+                <fieldset>
                     <input type="checkbox" onClick={(e) => this.props.toggleMarkers("communityCenters", e.target.checked)} defaultChecked={true} />
                     <img src={community} alt="communityCenters"/>
                     <label>Community Centers</label>
@@ -61,6 +67,7 @@ class ToggleFeatures extends Component {
                     <img src={seniorCenters} alt="seniorCenters" />
                     <label>Senior Centers</label>
                 </fieldset>
+
                 </React.Fragment>
                 }
                 <ReportModal />
