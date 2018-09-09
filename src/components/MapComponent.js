@@ -70,11 +70,15 @@ class Map extends React.Component {
 
     // add all the pointers 
     // add community center markers 
-    this.toggleMarkers('communityCenters', true);
-    this.toggleMarkers('hospitals', true);
-    this.toggleMarkers('parkPoints', true);
-    this.toggleMarkers('seniorCenters', true);
-    this.toggleMarkers('seniorHomes', true);
+    this.toggleMarkers('communityCenters', true).then(() => 
+      this.toggleMarkers('hospitals', true)
+    ).then(() => 
+    this.toggleMarkers('parkPoints', true)
+    ).then(() =>
+    this.toggleMarkers('seniorCenters', true)
+    ).then(() => 
+    this.toggleMarkers('seniorHomes', true)
+    )
   }
 
   toggleHeatMap() {
@@ -156,21 +160,16 @@ class Map extends React.Component {
         marker.bindPopup(val[titleLoc]).openPopup();
         stateToUpdate = {...stateToUpdate, [type]: { ...stateToUpdate[type], [index]: marker }}
       })
-      console.log('tyoe', type, stateToUpdate)
-      this.setState({ markers: stateToUpdate })
+      return Promise.resolve(this.setState({ markers: stateToUpdate }));
     } else {
-      console.log('this.state', this.state)
       if (this.state.markers && this.state.markers[type]) { // check
         dataToUse.map((val, index) => {
           // console.log('ss', index, this.state.markers[type][index])
           this.map.removeLayer(this.state.markers[type][index]); // remove
-        })
+        });
+        return Promise.resolve(this.setState({ markers: {...this.state.markers, [type]: {} } }));
       }
     }
-  }
-
-  report() {
-    console.log('report')
   }
 
   render() {
