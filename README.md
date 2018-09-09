@@ -40,7 +40,7 @@ Start (Port 3000)
 * Firebase (for watcher)
 
 
-![Demo Screenshot](/screenshots/demo.png)
-![Alert](/screenshots/alert.png)
-![Report Collision](/screenshots/collision.png)
+![Demo Screenshot](/screenshot/demo.png)
+![Alert](/screenshot/alert.png)
+![Report Collision](/screenshot/collision.png)
 
