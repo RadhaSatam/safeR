@@ -1,7 +1,7 @@
 # safeR 
 
 ## Introduction
-Safer is an app that leverages the multi-agent reinforcement learning technology along with collision data to generate a prescriptive risk model that would help increase safety for seniors & allow decision makers to make sound decision for them.
+Safer is an app that leverages the multi-agent reinforcement learning technology along with collision data to generate a prescriptive risk model that would help increase safety for seniors & allow decision makers to make sound decision for them. This app has been developed in Vanquish Collions Hackathon for the city of Vancouver.
 
 ## Links
 
@@ -13,7 +13,7 @@ https://goo.gl/d1BsoK
 
 ## Setup
 
-### Run Instructions
+### Running Instructions
 
 Install the node modules
 ```
@@ -24,7 +24,7 @@ Start (Port: 3000)
 ```
 npm start
 ```
-## Dependencies
+### Dependencies
 
 * React
   (https://github.com/facebook/react)
