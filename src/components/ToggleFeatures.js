@@ -6,11 +6,17 @@ import community from '../imgs/community.png';
 import park from '../imgs/park.png';
 import seniorCenters from '../imgs/seniorCenters.png';
 import seniorHomes from '../imgs/seniorHomes.png';
+import logo from "../imgs/logo/logo.png";
 
 class ToggleFeatures extends Component {
     render() {
         return (
             <div className="toggle-features">
+                <div id="logo-container">
+                    <img id="logo" src={logo} alt="safeR" />
+                </div>
+
+
                 <fieldset>
                     <input onClick={this.props.toggleHeatMap} defaultChecked={true} type="checkbox" />
                     <label>Risk Heat Map</label>

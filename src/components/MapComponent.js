@@ -46,6 +46,7 @@ class Map extends React.Component {
     this.map = L.map('map', {
       center: [49.2870715, -123.1364628],
       zoom: 15,
+      zoomControl: false,
       layers: [
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
           attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -53,14 +54,20 @@ class Map extends React.Component {
       ]
     });
 
-    
-    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.85: 'lime', 1: 'red'}}).addTo(this.map);
+    //add zoom control with your options
+    L.control.zoom({
+      position:'topright'
+    }).addTo(this.map);
+
+    // add heat layer    
+    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.85: 'lime', 1: '#ff0000'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
 
     const searchControl = new GeoSearchControl({
       provider: provider,
+      position: "topright"
     });
 
     this.map.addControl(searchControl);
@@ -143,21 +150,18 @@ class Map extends React.Component {
       }
     };
 
-    // console.log('data', dataToUse)
 
     if(trigger && trigger === true) {
       let stateToUpdate = this.state.markers;
       dataToUse.map((val, index) => {
         let coordinates = val.slice(xLoc, yLoc).map(i => parseFloat(i));
         if(convertUTMtoLatLong) {
-          // console.log('coordinates', coordinates)
           var utm = "+proj=utm +zone=10";
           var wgs84 = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
           coordinates = proj4(utm,wgs84,coordinates); // convert utm 10 to lat long
           coordinates = coordinates.reverse();
         }
         let marker = L.marker(coordinates, { icon: iconToUse }).addTo(this.map);
-        // let marker = L.marker(coordinates).addTo(this.map);
         marker.bindPopup(val[titleLoc]).openPopup();
         stateToUpdate = {...stateToUpdate, [type]: { ...stateToUpdate[type], [index]: marker }}
       })
@@ -165,7 +169,6 @@ class Map extends React.Component {
     } else {
       if (this.state.markers && this.state.markers[type]) { // check
         dataToUse.map((val, index) => {
-          // console.log('ss', index, this.state.markers[type][index])
           this.map.removeLayer(this.state.markers[type][index]); // remove
         });
         return Promise.resolve(this.setState({ markers: {...this.state.markers, [type]: {} } }));
@@ -175,13 +178,12 @@ class Map extends React.Component {
 
   render() {
     return (
-      <div id="map-container" style={{height: "90vh"}}>
+      <div id="map-container" style={{height: "100vh"}}>
         <div id="map" style={{height: "100%"}}></div>  
         <ToggleFeatures 
           toggleHeatMap={this.toggleHeatMap}
           toggleMarkers={this.toggleMarkers}
         />
-        {/* <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button> */}
       </div>
     )
   }

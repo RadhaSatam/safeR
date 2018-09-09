@@ -8,3 +8,12 @@ body {
   position: relative;
   z-index: 9999;
 }
+
+#logo-container {
+  text-align: center;
+}
+
+#logo-container #logo {
+  width: 150px;
+  margin: 20px 0 30px 0;
+}

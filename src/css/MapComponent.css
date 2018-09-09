@@ -1,15 +1,36 @@
 
+/* grayscale */
 .leaflet-tile-pane {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+    -webkit-filter: grayscale(80%);
+    filter: grayscale(80%);
 }
 
+/* geosearch form css */
 .leaflet-right .leaflet-control-geosearch form {
     right: 28px;
     left: initial;
     border-radius: 4px 0 0 4px;
     border-left: inherit;
     border-right: none;
+}
+
+/* spacing */
+.leaflet-top.leaflet-right {
+    margin-top: 15px;
+    margin-right: 15px;
+}
+
+ /* control icons */
+.leaflet-control-zoom.leaflet-bar.leaflet-control,
+.leaflet-control-zoom.leaflet-bar.leaflet-control a,
+.geosearch.leaflet-bar.leaflet-control.leaflet-control-geosearch {
+    background: #ffffff;
+    border: none;
+}
+
+/* plus icon */
+.leaflet-control-zoom.leaflet-bar.leaflet-control .leaflet-control-zoom-in {
+    background: #ffd300;
 }
 
 #map-container .btn {

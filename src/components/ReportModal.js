@@ -49,6 +49,7 @@ class ReportModal extends Component {
                     ariaHideApp={false}
                 >          
                     <h2 className="reportModal-title" ref={subtitle => this.subtitle = subtitle}>Report a Collision</h2>
+                    <p>Help make your city safer</p>
                     <form className="reportModal-form">
                         <fieldset>
                             <label className="label" htmlFor="name">Name</label>
@@ -86,7 +87,7 @@ class ReportModal extends Component {
                 </Modal>
                 }
                 <div className="btn-container">
-                    <button onClick={this.openModal} className="btn btn-reportButton">Report A Collision</button>
+                    <button onClick={this.openModal} className="btn btn-reportButton">Report</button>
                 </div>
             </div>
         )
