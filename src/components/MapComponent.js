@@ -54,7 +54,7 @@ class Map extends React.Component {
     });
 
     
-    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.65: 'lime', 1: 'red'}}).addTo(this.map);
+    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.85: 'lime', 1: 'red'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
@@ -81,6 +81,7 @@ class Map extends React.Component {
     )
   }
 
+  // toggles the heat map
   toggleHeatMap() {
     if(this.state.heatMapActive) {
       this.map.removeLayer(heat);
@@ -91,6 +92,7 @@ class Map extends React.Component {
     this.setState({ heatMapActive: !this.state.heatMapActive })
   }
 
+  // function to toggle all the heat maps (remove layer should be applied on this.map)
   toggleMarkers(type, trigger) {
     let dataToUse = null,
         iconToUse = null,
@@ -144,7 +146,6 @@ class Map extends React.Component {
     // console.log('data', dataToUse)
 
     if(trigger && trigger === true) {
-      console.log("init state", this.state.markers)
       let stateToUpdate = this.state.markers;
       dataToUse.map((val, index) => {
         let coordinates = val.slice(xLoc, yLoc).map(i => parseFloat(i));
