@@ -16,15 +16,12 @@ https://goo.gl/d1BsoK
 ### Running Instructions
 
 Install the node modules
-```
-npm install 
-```
+`npm install`
 
 Start (Port: 3000)
-```
-npm start
-```
-### Dependencies
+`npm start`
+
+## Dependencies
 
 * React
   (https://github.com/facebook/react)
