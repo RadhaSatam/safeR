@@ -1,27 +1,46 @@
 # safeR 
 
 ## Introduction
-Making cities safer
+Safer is an app that leverages the CityFlux’s simulation technology to to create a prescriptive model that would help increase safety for seniors & allow decision makers to
 
 ## Links
 
-## Setup Instructions
+### Deployed App
+https://guarded-cove-92930.herokuapp.com/
 
-### Tech Stack Used
+### Slide Deck
+https://goo.gl/d1BsoK
 
-React
-Leaflet
-Heroku (to deploy)
-Firebase (for watcher)
+## Setup
 
 ### Run Instructions
 
 Install the node modules
 > npm install 
 
-Start 
+Start (Port 3000)
 > npm start
+
+## Dependencies
+
+* [React]
+  (https://github.com/facebook/react)
+
+* [Leaflet]
+  (https://github.com/PaulLeCam/react-leaflet)
+
+* [Leaflet Heatmap]
+  (https://github.com/Leaflet/Leaflet.heat)
+
+* [Leaflet Geosearch]
+  (https://github.com/smeijer/leaflet-geosearch)
+  
+* Heroku (to deploy)
+
+* Firebase (for watcher)
+
 
 ![Demo Screenshot](/screenshots/demo.png)
 ![Alert](/screenshots/alert.png)
 ![Report Collision](/screenshots/collision.png)
+
