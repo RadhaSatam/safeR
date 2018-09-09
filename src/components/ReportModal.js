@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import Modal from 'react-modal';
 import "../css/ReportModal.css";
 
+import { firebaseDb } from "../utils/firebaseConfig";
+
+import {geolocated } from 'react-geolocated';
+
+import axios from 'axios';
+
 const customStyles = {
   content : {
     top                   : '50%',
@@ -22,10 +28,13 @@ class ReportModal extends Component {
 
             name : '',
             location: '',
-            severity: 'mild',
+            severity: 'low',
             type: 'Veh-Veh',
+            latitude: null,
+            longitude: null,
 
-            formError: null
+            formError: null,
+            formStatus: null
         };
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -33,26 +42,60 @@ class ReportModal extends Component {
         this.onSubmitReportModal = this.onSubmitReportModal.bind(this);
     }
 
+    componentDidMount() {
+    }
+
     openModal() {
-        this.setState({modalIsOpen: true});
+        this.setState({modalIsOpen: true, formError: null, formStatus: null});
     }
 
     afterOpenModal() {
+        if(this.props.isGeolocationAvailable && this.props.coords && this.props.coords.latitude && this.props.coords.longitude) {
+            let latitude = this.props.coords.latitude,
+                longitude = this.props.coords.longitude;
+            axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e02c5e2e62d14e10969c7001c429d041`).then(result => {
+                console.log('hiresu', result);
+                if(result && result.data && result.data.results && result.data.results[0]) {
+                    this.setState({ location: result.data.results[0].formatted, latitude, longitude })
+                }
+            })
+        }
     }
 
     closeModal() {
-        this.setState({modalIsOpen: false});
+        this.setState({ modalIsOpen: false, formError: null,formStatus: null });
     }
 
     onSubmitReportModal() {
-        console.log('report', this.state);
-
         if(!this.state.name || !this.state.location || !this.state.severity || !this.state.type) {
             this.setState({ formError: 'Please enter all the values' });
             return null;
         }
 
-        
+        let dataToSend = {
+            name: this.state.name,
+            location: this.state.location,
+            severity: this.state.severity,
+            type: this.state.type,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude
+        }
+
+        // add data to firebase
+        let newPushKey = firebaseDb.ref(`/collisionReport`).push().key;
+        firebaseDb.ref(`/collisionReport/${newPushKey}`).set(dataToSend);
+
+        // reset
+        this.setState({
+            name:'',
+            location:'',
+            severity:'low',
+            type:'Veh-Veh',
+            latitude: null,
+            longitude: null,
+
+            formStatus: `Thank you, ${this.state.name}, for reporting a collision`
+        });
     }
     
     render() {
@@ -80,8 +123,8 @@ class ReportModal extends Component {
                         </fieldset>
                         <fieldset>
                             <label className="label" htmlFor="severity">Severity Level</label>
-                            <select id="severity" name="severity" onChange={(e) => this.setState({ severity: e && e.target && e.target.value ? e.target.value : 'mild' })} value={this.state.severity}>
-                                <option value="mild">Mild</option>
+                            <select id="severity" name="severity" onChange={(e) => this.setState({ severity: e && e.target && e.target.value ? e.target.value : 'low' })} value={this.state.severity}>
+                                <option value="low">Low</option>
                                 <option value="moderate">Moderate</option>
                                 <option value="severe">Severe</option>
                             </select>
@@ -99,6 +142,7 @@ class ReportModal extends Component {
                             </select>
                         </fieldset>
                         <p className="error">{this.state.formError}</p>
+                        <p className="form-status">{this.state.formStatus}</p>
                     </form>
                     <div className="btn-divs">
                         <button className="btn btn-modalBtns" onClick={this.closeModal}>Close</button>
@@ -114,4 +158,9 @@ class ReportModal extends Component {
     }
 }
 
-export default ReportModal;
+export default geolocated({
+    positionOptions: {
+      enableHighAccuracy: true,
+    },
+    userDecisionTimeout: 5000,
+  })(ReportModal);

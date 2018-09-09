@@ -20,5 +20,12 @@ body {
 
 .error {
   color: red;
-  padding-left: 15px;
+  padding-left: 20px;
+  font-style: italic;
+}
+
+.form-status {
+  color: green;
+  padding-left: 20px;
+  font-style: italic;
 }

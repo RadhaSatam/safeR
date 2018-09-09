@@ -7,12 +7,15 @@
     "node": "9.7.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "firebase": "^5.4.2",
     "leaflet": "^1.3.4",
     "leaflet-geosearch": "^2.7.0",
     "leaflet.heat": "^0.2.0",
     "proj4": "^2.5.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
+    "react-geolocated": "^2.4.0",
     "react-modal": "^3.5.1",
     "react-scripts": "1.1.5"
   },
