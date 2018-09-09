@@ -22,7 +22,8 @@ import {
   hospitalsIcon,
   parkPointsIcon,
   seniorCentersIcon,
-  seniorHomesIcon
+  seniorHomesIcon,
+  reportedIncidentsIcon
 } from '../data/icons';
 
 var heat = null;
@@ -69,7 +70,7 @@ class Map extends React.Component {
       0.50: 'lime',
       0.70: 'yellow',
       0.95: '#FF8300',
-      1.0:  '#ff3030'}}).addTo(this.map);
+      1.0:  '#ff852d'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
@@ -88,18 +89,19 @@ class Map extends React.Component {
     // add community center markers 
     this.toggleMarkers('communityCenters', true).then(() => 
       this.toggleMarkers('hospitals', true)
-    ).then(() => 
-    this.toggleMarkers('parkPoints', true)
+    // ).then(() => 
+    // this.toggleMarkers('parkPoints', true)
     ).then(() =>
     this.toggleMarkers('seniorCenters', true)
-    ).then(() => 
-    this.toggleMarkers('seniorHomes', true)
     )
+    // ).then(() => 
+    // this.toggleMarkers('seniorHomes', true)
+    // )
 
     this.toggleReportedIncidents(true);
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     firebaseDb.ref(`/collisionReport`).off();
   }
 
@@ -109,7 +111,7 @@ class Map extends React.Component {
         let snapVals = snap && snap.val() ? snap.val() : null;
         for(let i in snapVals) {
           if(snapVals[i].latitude && snapVals[i].longitude) {
-            let marker = L.marker([snapVals[i].latitude, snapVals[i].longitude]).addTo(this.map);
+            let marker = L.marker([snapVals[i].latitude, snapVals[i].longitude],  { icon: reportedIncidentsIcon }).addTo(this.map);
             marker.bindPopup(`<div><b>Reported By:</b> ${snapVals[i].name}<br/><b>Incident Type:</b> ${snapVals[i].type}<br/><b>Severity:</b> ${snapVals[i].severity}</div>`).openPopup();
             this.setState({
               reportedCollisions: {...this.state.reportedCollisions, [i]: marker }

@@ -7,6 +7,7 @@ import park from '../imgs/park.png';
 import seniorCenters from '../imgs/seniorCenters.png';
 import seniorHomes from '../imgs/seniorHomes.png';
 import logo from "../imgs/logo/logo.png";
+import reportedIncidents from '../imgs/reportedIncidents.png';
 
 import slideUp from "../imgs/slide-up.png";
 import slideDown from "../imgs/slide-down.png";
@@ -38,7 +39,7 @@ class ToggleFeatures extends Component {
 
                 <fieldset>
                     <input type="checkbox" onClick={(e) => this.props.toggleReportedIncidents(e.target.checked)} defaultChecked={true} />
-                    {/* <img src={reportedIncidents} alt="reportedIncidents" /> */}
+                    <img src={reportedIncidents} alt="reportedIncidents" />
                     <label>Reported Incidents</label>
                 </fieldset>
 
@@ -48,7 +49,7 @@ class ToggleFeatures extends Component {
                     <label>Community Centers</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("parkPoints", e.target.checked)} defaultChecked={true} />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("parkPoints", e.target.checked)} defaultChecked={false} />
                     <img src={park} alt="parkPoints" />
                     <label>Parks</label>
                 </fieldset>
@@ -58,7 +59,7 @@ class ToggleFeatures extends Component {
                     <label>Hospitals</label>
                 </fieldset>
                 <fieldset>
-                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("seniorHomes", e.target.checked)} defaultChecked={true} />
+                    <input type="checkbox" onClick={(e) => this.props.toggleMarkers("seniorHomes", e.target.checked)} defaultChecked={false} />
                     <img src={seniorHomes} alt="seniorHomes" />
                     <label>Senior Homes</label>
                 </fieldset>
