@@ -22,6 +22,6 @@ Install the node modules
 Start 
 > npm start
 
-![Demo Screenshot]("./screenshots/demo.png")
-![Alert]("./screenshots/alert.png")
-![Report Collision]("./screenshots/collision.png")
+![Demo Screenshot](/screenshots/demo.png)
+![Alert](/screenshots/alert.png)
+![Report Collision](/screenshots/collision.png)
