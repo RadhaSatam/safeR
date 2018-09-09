@@ -16,6 +16,7 @@ import { firebaseDb } from "../utils/firebaseConfig";
 import { heatMapPoints } from '../data/heatMapPoints';
 
 import ToggleFeatures from './ToggleFeatures';
+import AlertModal from './AlertModal';
 
 import {geolocated } from 'react-geolocated';
 
@@ -42,7 +43,8 @@ class Map extends React.Component {
                   seniorHomes: {},
               },
       reportedCollisions: {},
-      sessionId: null
+      sessionId: null,
+      openAlertModal: false
     }
     this.toggleHeatMap = this.toggleHeatMap.bind(this);
     this.toggleMarkers = this.toggleMarkers.bind(this);
@@ -129,6 +131,7 @@ class Map extends React.Component {
       firebaseDb.ref(`/session/${sessionId}`).on('value', snap => {
         if(snap && snap.val() && snap.val().alert) {
           console.log("ALERT! Something happened in your area");
+          this.setState({ openAlertModal: true })
         }
       })
     }
@@ -257,6 +260,10 @@ class Map extends React.Component {
           toggleMarkers={this.toggleMarkers}
           toggleReportedIncidents={this.toggleReportedIncidents}
         />
+        {
+          this.state.openAlertModal &&
+          <AlertModal openAlertModal={this.state.openAlertModal} closeAlertModal={()=> this.setState({openAlertModal: false}) } />
+        }
       </div>
     )
   }

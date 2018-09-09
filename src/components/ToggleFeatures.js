@@ -39,7 +39,7 @@ class ToggleFeatures extends Component {
 
                 <fieldset>
                     <input type="checkbox" onClick={(e) => this.props.toggleReportedIncidents(e.target.checked)} defaultChecked={true} />
-                    <img src={reportedIncidents} alt="reportedIncidents" />
+                    <img width="20px" src={reportedIncidents} alt="reportedIncidents" />
                     <label>Reported Incidents</label>
                 </fieldset>
 

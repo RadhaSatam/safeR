@@ -6,6 +6,8 @@ import { firebaseDb } from "../utils/firebaseConfig";
 
 import {geolocated } from 'react-geolocated';
 
+import { collisionTypeMap } from '../data/staticData';
+
 import axios from 'axios';
 
 const customStyles = {
@@ -54,12 +56,12 @@ class ReportModal extends Component {
             let latitude = this.props.coords.latitude,
                 longitude = this.props.coords.longitude;
                 // uncomment before deploy
-            // axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e02c5e2e62d14e10969c7001c429d041`).then(result => {
-            //     console.log('hiresu', result);
-            //     if(result && result.data && result.data.results && result.data.results[0]) {
-            //         this.setState({ location: result.data.results[0].formatted, latitude, longitude })
-            //     }
-            // })
+            axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e02c5e2e62d14e10969c7001c429d041`).then(result => {
+                console.log('hiresu', result);
+                if(result && result.data && result.data.results && result.data.results[0]) {
+                    this.setState({ location: result.data.results[0].formatted, latitude, longitude })
+                }
+            })
         }
     }
 
@@ -134,13 +136,13 @@ class ReportModal extends Component {
                         <fieldset>
                             <label className="label" htmlFor="type">Type Of Collision</label>
                             <select id="type" name="type" onChange={(e) => this.setState({ type: e && e.target && e.target.value ? e.target.value : 'Veh-Veh' })} value={this.state.type}>
-                                <option value="Veh-Veh">Vehicle to Vehicle</option>
-                                <option value="Veh-Ped">Vehicle to Pedestrian</option>
-                                <option value="Ped-Unk">Pedestrian to Unknown</option>
-                                <option value="Veh-Mot">Vehicle to Motorist</option>
-                                <option value="Single Cyl">Single Cycle</option>
-                                <option value="Cyl-Cyl">Cycle to Cycle</option>
-                                <option value="Cyl-Unk">Cycle to Unknown</option>
+                                <option value="Veh-Veh">{collisionTypeMap["Veh-Veh"]}</option>
+                                <option value="Veh-Ped">{collisionTypeMap["Veh-Ped"]}</option>
+                                <option value="Ped-Unk">{collisionTypeMap["Ped-Unk"]}</option>
+                                <option value="Veh-Mot">{collisionTypeMap["Veh-Mot"]}</option>
+                                <option value="Single Cyl">{collisionTypeMap["Single Cyl"]}</option>
+                                <option value="Cyl-Cyl">{collisionTypeMap["Cyl-Cyl"]}</option>
+                                <option value="Cyl-Unk">{collisionTypeMap["Cyl-Unk"]}</option>
                             </select>
                         </fieldset>
                         <p className="error">{this.state.formError}</p>
