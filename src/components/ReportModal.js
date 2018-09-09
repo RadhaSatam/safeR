@@ -18,11 +18,19 @@ class ReportModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalIsOpen: false
+            modalIsOpen: false,
+
+            name : '',
+            location: '',
+            severity: 'mild',
+            type: 'Veh-Veh',
+
+            formError: null
         };
         this.openModal = this.openModal.bind(this);
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+        this.onSubmitReportModal = this.onSubmitReportModal.bind(this);
     }
 
     openModal() {
@@ -34,6 +42,17 @@ class ReportModal extends Component {
 
     closeModal() {
         this.setState({modalIsOpen: false});
+    }
+
+    onSubmitReportModal() {
+        console.log('report', this.state);
+
+        if(!this.state.name || !this.state.location || !this.state.severity || !this.state.type) {
+            this.setState({ formError: 'Please enter all the values' });
+            return null;
+        }
+
+        
     }
     
     render() {
@@ -49,27 +68,27 @@ class ReportModal extends Component {
                     ariaHideApp={false}
                 >          
                     <h2 className="reportModal-title" ref={subtitle => this.subtitle = subtitle}>Report a Collision</h2>
-                    <p>Help make your city safer</p>
+                    <p className="sub-text">Help make your city safer</p>
                     <form className="reportModal-form">
                         <fieldset>
                             <label className="label" htmlFor="name">Name</label>
-                            <input type="text" name="name" id="name" placeholder="Enter your name" />
+                            <input type="text" name="name" id="name" placeholder="Enter your name" onChange={(e) => this.setState({ name: e && e.target && e.target.value ? e.target.value : '' })} value={this.state.name} />
                         </fieldset>
                         <fieldset>
                             <label className="label" htmlFor="location">Collision Location</label>
-                            <input type="text" name="location" id="location" placeholder="Location" />
+                            <input type="text" name="location" id="location" placeholder="Location" onChange={(e) => this.setState({ location: e && e.target && e.target.value ? e.target.value : '' })} value={this.state.location} />
                         </fieldset>
                         <fieldset>
-                            <label className="label" htmlFor="location">Severity Level</label>
-                            <select>
+                            <label className="label" htmlFor="severity">Severity Level</label>
+                            <select id="severity" name="severity" onChange={(e) => this.setState({ severity: e && e.target && e.target.value ? e.target.value : 'mild' })} value={this.state.severity}>
                                 <option value="mild">Mild</option>
                                 <option value="moderate">Moderate</option>
                                 <option value="severe">Severe</option>
                             </select>
                         </fieldset>
                         <fieldset>
-                            <label className="label" htmlFor="location">Type Of Collision</label>
-                            <select>
+                            <label className="label" htmlFor="type">Type Of Collision</label>
+                            <select id="type" name="type" onChange={(e) => this.setState({ type: e && e.target && e.target.value ? e.target.value : 'Veh-Veh' })} value={this.state.type}>
                                 <option value="Veh-Veh">Vehicle to Vehicle</option>
                                 <option value="Veh-Ped">Vehicle to Pedestrian</option>
                                 <option value="Ped-Unk">Pedestrian to Unknown</option>
@@ -79,10 +98,11 @@ class ReportModal extends Component {
                                 <option value="Cyl-Unk">Cycle to Unknown</option>
                             </select>
                         </fieldset>
+                        <p className="error">{this.state.formError}</p>
                     </form>
                     <div className="btn-divs">
                         <button className="btn btn-modalBtns" onClick={this.closeModal}>Close</button>
-                        <button className="btn btn-modalBtns" onClick={this.closeModal}>Submit</button>
+                        <button className="btn btn-modalBtns" onClick={this.onSubmitReportModal}>Submit</button>
                     </div>
                 </Modal>
                 }

@@ -6,6 +6,11 @@
     padding-left: 15px;
 }
 
+.ReactModalPortal .sub-text {
+    padding-left: 15px;
+    font-style: italic;
+}
+
 fieldset {
     border: none;
 }
@@ -55,11 +60,12 @@ fieldset {
     position: absolute;
     left: 25px;
     top: 25px;
-    -webkit-box-shadow: 0 10px 10px -6px #777;
-    -moz-box-shadow: 0 10px 10px -6px #777;
-         box-shadow: 0 10px 10px -6px #777;
+    -webkit-box-shadow: 8px 10px 10px -6px #777;
+    -moz-box-shadow: 8px 10px 10px -6px #777;
+         box-shadow: 8px 10px 10px -6px #777;
 }
 
 .toggle-features fieldset img {
     padding: 0 10px;
 }
+

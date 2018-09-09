@@ -60,7 +60,12 @@ class Map extends React.Component {
     }).addTo(this.map);
 
     // add heat layer    
-    heat = L.heatLayer(heatMapPoints, {maxZoom: 10, radius: 20, max: 1.0, gradient: {0.1: 'yellow', 0.85: 'lime', 1: '#ff0000'}}).addTo(this.map);
+    heat = L.heatLayer(heatMapPoints, {maxZoom: 15, radius: 20, blur: 12, max: 1.0, gradient: {
+      0:  '#f23e45',
+      0.50: 'lime',
+      0.70: 'yellow',
+      0.95: '#FF8300',
+      1.0:  '#ff3030'}}).addTo(this.map);
 
     // add search control
     const provider = new OpenStreetMapProvider();
