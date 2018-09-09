@@ -13,7 +13,7 @@ import seniorHomes from '../data/amenities/seniorHomes';
 
 import { heatMapPoints } from '../data/heatMapPoints';
 
-import ReportModal from './ReportModal';
+import ToggleFeatures from './ToggleFeatures';
 
 import {
   communityCentersIcon,
@@ -154,8 +154,9 @@ class Map extends React.Component {
     return (
       <div id="map-container" style={{height: "90vh"}}>
         <div id="map" style={{height: "100%"}}></div>  
-        <button onClick={this.toggleHeatMap} className="btn btn-toggleMap">Toggle Heat Map</button>
-        <ReportModal />
+        <ToggleFeatures 
+          toggleHeatMap={this.toggleHeatMap}
+        />
         {/* <button onClick={this.toggleMarkers} className="btn btn-toggleMarkers">Toggle Markers</button> */}
       </div>
     )

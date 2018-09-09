@@ -12,39 +12,28 @@
     border-right: none;
 }
 
-
-#map-container .btn-toggleMap {
-    text-decoration: none;
-    border: none;
-    padding: 10px;
-    background: #fff;
-    color: #000;
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    z-index: 9999;
-}
-
-#map-container .btn-toggleMap:hover {
-    background: #fafafa;
-}
-
 #map-container .btn {
     text-decoration: none;
     border: none;
     padding: 10px;
     background: #fff;
     color: #000;
-    position: absolute;
-    bottom: 20px;
-    left: 10px;
-    z-index: 9999;
-}
-
-#map-container .btn-toggleMarkers {
-    background: #fafafa;
+    /* position: absolute; */
+    /* bottom: 20px; */
+    /* left: 10px; */
+    /* z-index: 9999; */
 }
 
 #map-container .btn-reportButton {
-    bottom: 70px;
+    border: 2px solid #ff0000;
+    padding: 10px;
+    font-weight: bold;
+    margin: 20px;
 }
+
+#map-container .btn-reportButton:hover {
+    background:#ff0000;
+    color: #ffffff;
+}
+/* #ffd200 */
+/* #ff0000 */

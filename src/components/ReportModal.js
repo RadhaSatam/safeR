@@ -38,7 +38,8 @@ class ReportModal extends Component {
     
     render() {
         return (
-            <React.Fragment>
+            <div className="reportModal">
+                {this.state.modalIsOpen && 
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
@@ -83,8 +84,11 @@ class ReportModal extends Component {
                         <button className="btn btn-modalBtns" onClick={this.closeModal}>Submit</button>
                     </div>
                 </Modal>
-                <button onClick={this.openModal} className="btn btn-reportButton">Report A Collision</button>
-            </React.Fragment>
+                }
+                <div className="btn-container">
+                    <button onClick={this.openModal} className="btn btn-reportButton">Report A Collision</button>
+                </div>
+            </div>
         )
     }
 }

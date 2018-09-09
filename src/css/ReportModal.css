@@ -1,8 +1,12 @@
+.reportModal .btn-container{
+    text-align: center;
+}
+
 .reportModal-title {
     padding-left: 15px;
 }
 
-.reportModal-form fieldset {
+fieldset {
     border: none;
 }
 
@@ -44,3 +48,15 @@
     color: #ffffff;
 }
 
+.toggle-features {
+    padding: 20px;
+    background: #ffffff;
+    z-index: 9999;
+    position: absolute;
+    right: 15px;
+    top: 100px;
+}
+
+.toggle-features fieldset img {
+    padding: 0 10px;
+}
